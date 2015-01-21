@@ -12,27 +12,35 @@
  * details.
  */
 
-package com.liferay.mobile.screens.library.auth.login.interactor.task;
-
-import com.liferay.mobile.android.task.callback.typed.JSONObjectAsyncTaskCallback;
-import com.liferay.mobile.screens.library.auth.login.interactor.event.LoginEvent;
-import com.liferay.mobile.screens.library.util.EventBusUtil;
-
-import org.json.JSONObject;
+package com.liferay.mobile.screens.library.base.interactor.event;
 
 /**
  * @author Silvio Santos
  */
-public class LoginCallback extends JSONObjectAsyncTaskCallback {
+public abstract class BaseEvent {
 
-	@Override
-	public void onFailure(Exception e) {
-		EventBusUtil.post(new LoginEvent(LoginEvent.REQUEST_FAILED, e));
+	public static final int REQUEST_FAILED = 0;
+
+	public static final int REQUEST_SUCCESS = 1;
+
+	public BaseEvent(int type) {
+		this(type, null);
 	}
 
-	@Override
-	public void onSuccess(JSONObject jsonObject) {
-		EventBusUtil.post(new LoginEvent(LoginEvent.REQUEST_SUCCESS));
+	public BaseEvent(int type, Exception exception) {
+		_type = type;
+		_exception = exception;
 	}
+
+	public Exception getException() {
+		return _exception;
+	}
+
+	public int getType() {
+		return _type;
+	}
+
+	private Exception _exception;
+	private int _type;
 
 }

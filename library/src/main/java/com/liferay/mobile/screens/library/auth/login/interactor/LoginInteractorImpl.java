@@ -16,6 +16,7 @@ package com.liferay.mobile.screens.library.auth.login.interactor;
 
 import com.liferay.mobile.android.service.Session;
 import com.liferay.mobile.android.v62.user.UserService;
+import com.liferay.mobile.screens.library.auth.login.interactor.event.LoginEvent;
 import com.liferay.mobile.screens.library.auth.login.interactor.task.LoginCallback;
 import com.liferay.mobile.screens.library.util.LiferayServerContext;
 import com.liferay.mobile.screens.library.util.SessionContext;
@@ -42,6 +43,9 @@ public class LoginInteractorImpl implements LoginInteractor {
 
 				break;
 		}
+	}
+
+	public void onEvent(LoginEvent event) {
 	}
 
 	protected UserService getUserService(String login, String password) {
