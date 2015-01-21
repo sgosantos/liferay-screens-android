@@ -24,12 +24,14 @@ import android.view.LayoutInflater;
 import com.liferay.mobile.screens.library.R;
 import com.liferay.mobile.screens.library.base.view.BaseScreenlet;
 import com.liferay.mobile.screens.library.user.portrait.interactor.PortraitInteractor;
+import com.liferay.mobile.screens.library.user.portrait.listener.OnPortraitListener;
 
 /**
  * @author Silvio Santos
  */
 public class PortraitScreenlet
-	extends BaseScreenlet<PortraitScreenletView, PortraitInteractor> {
+	extends BaseScreenlet<PortraitScreenletView, PortraitInteractor>
+	implements OnPortraitListener {
 
 	public PortraitScreenlet(Context context) {
 		this(context, null);

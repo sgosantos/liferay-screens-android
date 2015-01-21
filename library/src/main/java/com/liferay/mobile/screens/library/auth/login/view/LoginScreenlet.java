@@ -32,7 +32,8 @@ import com.liferay.mobile.screens.library.base.view.BaseScreenlet;
  * @author Silvio Santos
  */
 public class LoginScreenlet
-	extends BaseScreenlet<LoginScreenletView, LoginInteractor> {
+	extends BaseScreenlet<LoginScreenletView, LoginInteractor>
+	implements OnLoginListener {
 
 	public LoginScreenlet(Context context) {
 		this(context, null);
@@ -50,8 +51,32 @@ public class LoginScreenlet
 		setInteractor(new LoginInteractorImpl());
 	}
 
+	@Override
+	public void onLoginFailure(Exception e) {
+		if (_listener != null) {
+			_listener.onLoginFailure(e);
+		}
+
+		OnLoginListener listenerView = _loginView;
+		listenerView.onLoginFailure(e);
+	}
+
+	@Override
+	public void onLoginSuccess() {
+		if (_listener != null) {
+			_listener.onLoginSuccess();
+		}
+
+		OnLoginListener listenerView = _loginView;
+		listenerView.onLoginSuccess();
+	}
+
 	public void setAuthMethod(AuthMethod authMethod) {
 		_loginView.setAuthMethod(authMethod);
+	}
+
+	public void setOnLoginListener(OnLoginListener listener) {
+		_listener = listener;
 	}
 
 	@Override
@@ -87,6 +112,7 @@ public class LoginScreenlet
 		getInteractor().login(login, password, method);
 	}
 
+	private OnLoginListener _listener;
 	private LoginScreenletView _loginView;
 
 }
