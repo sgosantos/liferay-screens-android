@@ -10,7 +10,6 @@
 
 		<activity
 			android:name=".MainActivity"
-			android:screenOrientation="portrait"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
 			<intent-filter>
@@ -19,9 +18,7 @@
 			</intent-filter>
 		</activity>
 
-		<activity
-			android:name=".PortraitActivity"
-			android:screenOrientation="portrait" />
+		<activity android:name=".PortraitActivity" />
 
 	</application>
 </manifest>
