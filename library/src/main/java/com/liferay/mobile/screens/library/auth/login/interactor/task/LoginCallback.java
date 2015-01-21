@@ -12,15 +12,23 @@
  * details.
  */
 
-package com.liferay.mobile.screens.library.auth.login.interactor;
+package com.liferay.mobile.screens.library.auth.login.interactor.task;
 
-import com.liferay.mobile.screens.library.base.interactor.Interactor;
+import com.liferay.mobile.android.task.callback.typed.JSONObjectAsyncTaskCallback;
+
+import org.json.JSONObject;
 
 /**
  * @author Silvio Santos
  */
-public interface LoginInteractor extends Interactor {
+public class LoginCallback extends JSONObjectAsyncTaskCallback {
 
-	public void login(String login, String password, AuthMethod method);
+	@Override
+	public void onFailure(Exception e) {
+	}
+
+	@Override
+	public void onSuccess(JSONObject jsonObject) {
+	}
 
 }

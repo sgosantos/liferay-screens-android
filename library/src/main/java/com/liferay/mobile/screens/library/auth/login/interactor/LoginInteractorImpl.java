@@ -14,43 +14,76 @@
 
 package com.liferay.mobile.screens.library.auth.login.interactor;
 
-import com.liferay.mobile.screens.library.auth.login.interactor.task.LoginTask;
+import com.liferay.mobile.android.service.Session;
+import com.liferay.mobile.android.v62.user.UserService;
+import com.liferay.mobile.screens.library.auth.login.interactor.task.LoginCallback;
+import com.liferay.mobile.screens.library.util.LiferayServerContext;
+import com.liferay.mobile.screens.library.util.SessionContext;
 
 /**
  * @author Silvio Santos
  */
 public class LoginInteractorImpl implements LoginInteractor {
 
-	public void login(String userName, String password) {
-		LoginTask task = new LoginTask(userName, password, this);
+	public void login(String login, String password, AuthMethod authMethod) {
+		switch (authMethod) {
+			case EMAIL:
+				sendGetUserByEmailRequest(login, password);
 
-		task.execute();
-	}
+				break;
 
-	public void onLoginFailure() {
-		if (_listener != null) {
-			_listener.onLoginFailure();
+			case USER_ID:
+				sendGetUserByIdRequest(Long.parseLong(login), password);
+
+				break;
+
+			case SCREEN_NAME:
+				sendGetUserByScreenName(login, password);
+
+				break;
 		}
 	}
 
-	public void onLoginSuccess() {
-		if (_listener != null) {
-			_listener.onLoginSuccess();
+	protected UserService getUserService(String login, String password) {
+		Session session = SessionContext.createSession(login, password);
+		session.setCallback(new LoginCallback());
+
+		return new UserService(session);
+	}
+
+	protected void sendGetUserByEmailRequest(String email, String password) {
+		UserService service = getUserService(email, password);
+
+		try {
+			service.getUserByEmailAddress(
+				LiferayServerContext.getCompanyId(), email);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
-	public void setOnLoginListener(OnLoginListener listener) {
-		_listener = listener;
+	protected void sendGetUserByIdRequest(long userId, String password) {
+		UserService service = getUserService(String.valueOf(userId), password);
+
+		try {
+			service.getUserById(userId);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public interface OnLoginListener {
+	protected void sendGetUserByScreenName(String screenName, String password) {
+		UserService service = getUserService(screenName, password);
 
-		void onLoginSuccess();
-
-		void onLoginFailure();
-
+		try {
+			service.getUserByScreenName(
+				LiferayServerContext.getCompanyId(), screenName);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-	private OnLoginListener _listener;
 
 }

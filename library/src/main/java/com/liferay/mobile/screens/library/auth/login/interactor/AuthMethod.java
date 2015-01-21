@@ -14,13 +14,27 @@
 
 package com.liferay.mobile.screens.library.auth.login.interactor;
 
-import com.liferay.mobile.screens.library.base.interactor.Interactor;
-
 /**
  * @author Silvio Santos
  */
-public interface LoginInteractor extends Interactor {
+public enum AuthMethod {
 
-	public void login(String login, String password, AuthMethod method);
+	EMAIL(0), SCREEN_NAME(1), USER_ID(2);
+
+	public static AuthMethod getValue(int value) {
+		for (AuthMethod method : AuthMethod.values()) {
+			if (method._value == value) {
+				return method;
+			}
+		}
+
+		return EMAIL;
+	}
+
+	private AuthMethod(int value) {
+		_value = value;
+	}
+
+	private int _value;
 
 }
