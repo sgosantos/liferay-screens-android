@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.liferay.mobile.screens.library.auth.login.interactor.LoginInteractorImpl;
+import com.liferay.mobile.screens.library.auth.login.listener.OnLoginListener;
 import com.liferay.mobile.screens.library.auth.login.view.LoginScreenlet;
 
 /**
  * @author Silvio Santos
  */
 public class MainActivity extends Activity
-	implements LoginInteractorImpl.OnLoginListener {
+	implements OnLoginListener {
 
 	@Override
 	protected void onCreate(Bundle state) {
@@ -23,15 +24,14 @@ public class MainActivity extends Activity
 		LoginScreenlet loginScreenlet = (LoginScreenlet)findViewById(
 			R.id.login_screenlet);
 
-		LoginInteractorImpl loginInteractor = new LoginInteractorImpl();
-		loginInteractor.setOnLoginListener(this);
+		loginScreenlet.setOnLoginListener(this);
 
-		loginScreenlet.setInteractor(loginInteractor);
 	}
 
 	@Override
-	public void onLoginFailure() {
-		Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+	public void onLoginFailure(Exception e) {
+		Toast.makeText(
+			this, "Failed to login " + e.getMessage(), Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

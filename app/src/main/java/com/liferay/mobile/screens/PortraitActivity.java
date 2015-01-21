@@ -35,10 +35,7 @@ public class PortraitActivity extends Activity {
 		PortraitScreenlet portraitScreenlet = (PortraitScreenlet)
 			findViewById(R.id.portrait);
 
-		PortraitInteractor portraitInteractor =
-			new PortraitInteractorImpl(portraitScreenlet);
 
-		portraitScreenlet.setInteractor(portraitInteractor);
-		portraitInteractor.load(12935, "6b00f857-8560-4dcc-b7c1-61de666e8583");
+		portraitScreenlet.load(11391, "0360826d-381a-4988-917a-73bfd4bd4d18");
 	}
 }
