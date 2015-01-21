@@ -18,16 +18,21 @@ import android.content.Context;
 
 import android.util.AttributeSet;
 
+import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.liferay.mobile.screens.library.R;
+import com.liferay.mobile.screens.library.auth.login.interactor.AuthMethod;
+import com.liferay.mobile.screens.library.auth.login.listener.OnLoginListener;
 
 /**
  * @author Silvio Santos
  */
-public class LoginScreenletView extends LinearLayout {
+public class LoginScreenletView extends LinearLayout
+	implements LoginData, View.OnClickListener, OnLoginListener {
 
 	public LoginScreenletView(Context context) {
 		this(context, null);
@@ -43,12 +48,35 @@ public class LoginScreenletView extends LinearLayout {
 		super(context, attributes, defaultStyle);
 	}
 
+	@Override
+	public AuthMethod getAuthMethod() {
+		return _authMethod;
+	}
+
+	@Override
+	public String getLogin() {
+		return _loginEditText.getText().toString();
+	}
+
+	@Override
 	public String getPassword() {
 		return _passwordEditText.getText().toString();
 	}
 
-	public String getUserName() {
-		return _loginEditText.getText().toString();
+	@Override
+	public void onClick(View view) {
+	}
+
+	@Override
+	public void onLoginFailure(Exception e) {
+	}
+
+	@Override
+	public void onLoginSuccess() {
+	}
+
+	public void setAuthMethod(AuthMethod authMethod) {
+		_authMethod = authMethod;
 	}
 
 	@Override
@@ -56,7 +84,7 @@ public class LoginScreenletView extends LinearLayout {
 		super.onAttachedToWindow();
 
 		Button loginButton = (Button)findViewById(R.id.login_button);
-		loginButton.setOnClickListener((OnClickListener)getParent());
+		loginButton.setOnClickListener(this);
 	}
 
 	@Override
@@ -67,6 +95,7 @@ public class LoginScreenletView extends LinearLayout {
 		_passwordEditText = (EditText)findViewById(R.id.password);
 	}
 
+	private AuthMethod _authMethod;
 	private EditText _loginEditText;
 	private EditText _passwordEditText;
 
