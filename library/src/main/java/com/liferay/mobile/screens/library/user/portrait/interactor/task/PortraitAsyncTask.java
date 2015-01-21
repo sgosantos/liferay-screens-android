@@ -17,27 +17,26 @@ package com.liferay.mobile.screens.library.user.portrait.interactor.task;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import android.os.AsyncTask;
+
 import android.util.Log;
 
 import com.liferay.mobile.android.service.Session;
 import com.liferay.mobile.android.util.PortraitUtil;
-import com.liferay.mobile.screens.library.base.interactor.task.BaseAsyncTask;
-import com.liferay.mobile.screens.library.user.portrait.interactor.PortraitInteractor;
+import com.liferay.mobile.screens.library.base.interactor.event.BaseEvent;
+import com.liferay.mobile.screens.library.user.portrait.event.PortraitEvent;
+import com.liferay.mobile.screens.library.util.EventBusUtil;
 import com.liferay.mobile.screens.library.util.SessionContext;
 
 /**
  * @author Silvio Santos
  */
-public class PortraitAsyncTask extends BaseAsyncTask<Void, Void, Bitmap> {
+public class PortraitAsyncTask extends AsyncTask<Void, Void, Bitmap> {
 
-	public PortraitAsyncTask(
-		long portraitId, String uuid, String filePath,
-		PortraitInteractor interactor) {
-
+	public PortraitAsyncTask(long portraitId, String uuid, String filePath) {
 		_potraitId = portraitId;
 		_uuid = uuid;
 		_filePath = filePath;
-		_interactor = interactor;
 	}
 
 	@Override
@@ -60,14 +59,13 @@ public class PortraitAsyncTask extends BaseAsyncTask<Void, Void, Bitmap> {
 
 	@Override
 	protected void onPostExecute(Bitmap bitmap) {
-		_interactor.onPortraitLoadSuccess(bitmap);
+		EventBusUtil.post(new PortraitEvent(BaseEvent.REQUEST_SUCCESS, bitmap));
 	}
 
 	private static final String _CLASS_NAME =
 		PortraitAsyncTask.class.getSimpleName();
 
 	private String _filePath;
-	private PortraitInteractor _interactor;
 	private long _potraitId;
 	private String _uuid;
 

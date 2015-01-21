@@ -14,19 +14,14 @@
 
 package com.liferay.mobile.screens.library.user.portrait.interactor;
 
-import android.graphics.Bitmap;
-
 import com.liferay.mobile.screens.library.base.interactor.Interactor;
+import com.liferay.mobile.screens.library.user.portrait.listener.OnPortraitListener;
 
 /**
  * @author Silvio Santos
  */
-public interface PortraitInteractor extends Interactor {
+public interface PortraitInteractor extends Interactor<OnPortraitListener> {
 
 	public void load(long portraitId, String uuid);
-
-	public void onPortraitLoadFailure();
-
-	public void onPortraitLoadSuccess(Bitmap bitmap);
 
 }

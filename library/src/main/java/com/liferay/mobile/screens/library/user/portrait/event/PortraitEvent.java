@@ -12,24 +12,31 @@
  * details.
  */
 
-package com.liferay.mobile.screens.library.user.portrait.interactor;
+package com.liferay.mobile.screens.library.user.portrait.event;
 
-import com.liferay.mobile.screens.library.user.portrait.listener.OnPortraitListener;
+import android.graphics.Bitmap;
+
+import com.liferay.mobile.screens.library.base.interactor.event.BaseEvent;
 
 /**
  * @author Silvio Santos
  */
-public class PortraitInteractorImpl implements PortraitInteractor {
+public class PortraitEvent extends BaseEvent {
 
-	public void load(long portraitId, String uuid) {
+	public PortraitEvent(int type, Bitmap bitmap) {
+		super(type);
+
+		_bitmap = bitmap;
 	}
 
-	@Override
-	public void onScreenletAttachted(OnPortraitListener listener) {
+	public PortraitEvent(int type, Exception e) {
+		super(type, e);
 	}
 
-	@Override
-	public void onScreenletDetached(OnPortraitListener listener) {
+	public Bitmap getBitmap() {
+		return _bitmap;
 	}
+
+	private Bitmap _bitmap;
 
 }

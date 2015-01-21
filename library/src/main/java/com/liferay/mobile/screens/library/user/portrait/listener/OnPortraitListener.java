@@ -12,24 +12,10 @@
  * details.
  */
 
-package com.liferay.mobile.screens.library.user.portrait.interactor;
-
-import com.liferay.mobile.screens.library.user.portrait.listener.OnPortraitListener;
+package com.liferay.mobile.screens.library.user.portrait.listener;
 
 /**
  * @author Silvio Santos
  */
-public class PortraitInteractorImpl implements PortraitInteractor {
-
-	public void load(long portraitId, String uuid) {
-	}
-
-	@Override
-	public void onScreenletAttachted(OnPortraitListener listener) {
-	}
-
-	@Override
-	public void onScreenletDetached(OnPortraitListener listener) {
-	}
-
+public interface OnPortraitListener {
 }
