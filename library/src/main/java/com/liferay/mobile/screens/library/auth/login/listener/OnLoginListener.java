@@ -12,16 +12,12 @@
  * details.
  */
 
-package com.liferay.mobile.screens.library.auth.login.interactor;
+package com.liferay.mobile.screens.library.auth.login.listener;
 
-import com.liferay.mobile.screens.library.auth.login.listener.OnLoginListener;
-import com.liferay.mobile.screens.library.base.interactor.Interactor;
+public interface OnLoginListener {
 
-/**
- * @author Silvio Santos
- */
-public interface LoginInteractor extends Interactor<OnLoginListener> {
+	void onLoginSuccess();
 
-	public void login(String login, String password, AuthMethod method);
+	void onLoginFailure(Exception e);
 
 }

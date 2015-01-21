@@ -59,8 +59,22 @@ public abstract class BaseScreenlet<V extends View, I extends Interactor>
 	protected abstract V createScreenletView(
 		Context context, AttributeSet attributes);
 
-	protected V getScreenetView() {
+	protected V getScreenletView() {
 		return _screenletView;
+	}
+
+	@Override
+	protected void onAttachedToWindow() {
+		super.onAttachedToWindow();
+
+		_interactor.onScreenletAttachted(this);
+	}
+
+	@Override
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+
+		_interactor.onScreenletDetached(this);
 	}
 
 	private I _interactor;

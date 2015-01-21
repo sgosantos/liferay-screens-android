@@ -18,6 +18,8 @@ import com.liferay.mobile.android.service.Session;
 import com.liferay.mobile.android.v62.user.UserService;
 import com.liferay.mobile.screens.library.auth.login.interactor.event.LoginEvent;
 import com.liferay.mobile.screens.library.auth.login.interactor.task.LoginCallback;
+import com.liferay.mobile.screens.library.auth.login.listener.OnLoginListener;
+import com.liferay.mobile.screens.library.util.EventBusUtil;
 import com.liferay.mobile.screens.library.util.LiferayServerContext;
 import com.liferay.mobile.screens.library.util.SessionContext;
 
@@ -46,6 +48,30 @@ public class LoginInteractorImpl implements LoginInteractor {
 	}
 
 	public void onEvent(LoginEvent event) {
+		if (_listener == null) {
+			return;
+		}
+
+		if (event.getType() == LoginEvent.REQUEST_SUCCESS) {
+			_listener.onLoginSuccess();
+		}
+		else {
+			_listener.onLoginFailure(event.getException());
+		}
+	}
+
+	@Override
+	public void onScreenletAttachted(OnLoginListener listener) {
+		EventBusUtil.register(this);
+
+		_listener = listener;
+	}
+
+	@Override
+	public void onScreenletDetached(OnLoginListener listener) {
+		EventBusUtil.unregister(this);
+
+		_listener = null;
 	}
 
 	protected UserService getUserService(String login, String password) {
@@ -89,5 +115,7 @@ public class LoginInteractorImpl implements LoginInteractor {
 			e.printStackTrace();
 		}
 	}
+
+	private OnLoginListener _listener;
 
 }

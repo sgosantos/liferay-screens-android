@@ -17,6 +17,10 @@ package com.liferay.mobile.screens.library.base.interactor;
 /**
  * @author Silvio Santos
  */
-public interface Interactor {
+public interface Interactor<L> {
+
+	public void onScreenletAttachted(L listener);
+
+	public void onScreenletDetached(L listener);
 
 }
