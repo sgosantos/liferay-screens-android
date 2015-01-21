@@ -36,6 +36,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile group: 'com.android.support', name: 'appcompat-v7', version: '21.0.3'
 	compile group: 'com.liferay.mobile', name: 'liferay-android-sdk', version: '6.2.0.13'
+	compile group: 'de.greenrobot', name: 'eventbus', version: '2.4.0'
 
     formatter group: 'com.liferay.portal', name: 'portal-impl', version: '6.2.0-ga1'
     formatter group: 'com.liferay.portal', name: 'portal-service', version: '6.2.0-ga1'

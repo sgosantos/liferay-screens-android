@@ -93,6 +93,7 @@
     <orderEntry type="library" exported="" name="httpclient-android-4.3.3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
   </component>
 </module>
 
