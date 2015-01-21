@@ -20,18 +20,19 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import android.view.LayoutInflater;
-import android.view.View;
 
 import com.liferay.mobile.screens.library.R;
+import com.liferay.mobile.screens.library.auth.login.interactor.AuthMethod;
 import com.liferay.mobile.screens.library.auth.login.interactor.LoginInteractor;
+import com.liferay.mobile.screens.library.auth.login.interactor.LoginInteractorImpl;
+import com.liferay.mobile.screens.library.auth.login.listener.OnLoginListener;
 import com.liferay.mobile.screens.library.base.view.BaseScreenlet;
 
 /**
  * @author Silvio Santos
  */
 public class LoginScreenlet
-	extends BaseScreenlet<LoginScreenletView, LoginInteractor>
-	implements View.OnClickListener {
+	extends BaseScreenlet<LoginScreenletView, LoginInteractor> {
 
 	public LoginScreenlet(Context context) {
 		this(context, null);
@@ -45,16 +46,12 @@ public class LoginScreenlet
 		Context context, AttributeSet attributes, int defaultStyle) {
 
 		super(context, attributes, defaultStyle);
+
+		setInteractor(new LoginInteractorImpl());
 	}
 
-	@Override
-	public void onClick(View view) {
-		LoginScreenletView screenletView = getScreenetView();
-
-		String userName = screenletView.getUserName();
-		String password = screenletView.getPassword();
-
-		getInteractor().login(userName, password);
+	public void setAuthMethod(AuthMethod authMethod) {
+		_loginView.setAuthMethod(authMethod);
 	}
 
 	@Override
@@ -67,10 +64,19 @@ public class LoginScreenlet
 		int layoutId = typedArray.getResourceId(
 			R.styleable.LoginScreenlet_layoutId, R.layout.login_default);
 
-		LoginScreenletView view = (LoginScreenletView)
+		_loginView = (LoginScreenletView)
 			LayoutInflater.from(getContext()).inflate(layoutId, null);
 
-		return view;
+		int authMethod = typedArray.getInt(
+			R.styleable.LoginScreenlet_authMethod, 0);
+
+		setAuthMethod(AuthMethod.getValue(authMethod));
+
+		typedArray.recycle();
+
+		return _loginView;
 	}
+
+	private LoginScreenletView _loginView;
 
 }

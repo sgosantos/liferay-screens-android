@@ -4,6 +4,11 @@
 
 	<declare-styleable name="LoginScreenlet">
 		<attr name="layoutId" />
+		<attr name="authMethod" format="enum">
+			<enum name="email" value="0" />
+			<enum name="screen_name" value="1" />
+			<enum name="user_id" value="2" />
+		</attr>
 	</declare-styleable>
 
 	<declare-styleable name="PortraitScreenlet">
