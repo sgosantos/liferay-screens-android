@@ -14,6 +14,8 @@
 
 package com.liferay.mobile.screens.library.util;
 
+import com.liferay.mobile.android.auth.Authentication;
+import com.liferay.mobile.android.auth.basic.BasicAuthentication;
 import com.liferay.mobile.android.service.Session;
 import com.liferay.mobile.android.service.SessionImpl;
 
@@ -23,8 +25,11 @@ import com.liferay.mobile.android.service.SessionImpl;
 public class SessionContext {
 
 	public static Session createSession(String username, String password) {
+		Authentication authentication = new BasicAuthentication(
+			username, password);
+
 		_session = new SessionImpl(
-			LiferayServerContext.getServer(), username, password);
+			LiferayServerContext.getServer(), authentication);
 
 		return _session;
 	}

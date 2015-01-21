@@ -24,7 +24,7 @@ public class LiferayServerContext {
 	}
 
 	public static String getServer() {
-		return "http://192.168.56.1:8081";
+		return "http://192.168.56.1:8080";
 	}
 
 }
