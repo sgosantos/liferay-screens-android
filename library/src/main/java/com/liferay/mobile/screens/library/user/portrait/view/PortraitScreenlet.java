@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import com.liferay.mobile.screens.library.R;
 import com.liferay.mobile.screens.library.base.view.BaseScreenlet;
 import com.liferay.mobile.screens.library.user.portrait.interactor.PortraitInteractor;
+import com.liferay.mobile.screens.library.user.portrait.interactor.PortraitInteractorImpl;
 import com.liferay.mobile.screens.library.user.portrait.listener.OnPortraitListener;
 
 /**
@@ -45,10 +46,12 @@ public class PortraitScreenlet
 		Context context, AttributeSet attributes, int defaultStyle) {
 
 		super(context, attributes, defaultStyle);
+
+		setInteractor(new PortraitInteractorImpl());
 	}
 
-	public void load(Bitmap bitmap) {
-		getScreenetView().setImageBitmap(bitmap);
+	public void load(long portraitId, String uuid) {
+		getInteractor().load(portraitId, uuid);
 	}
 
 	@Override
