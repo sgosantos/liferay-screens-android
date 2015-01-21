@@ -77,6 +77,8 @@ public abstract class BaseScreenlet<V extends View, I extends Interactor>
 		_interactor.onScreenletDetached(this);
 	}
 
+	protected abstract void onUserAction(int id);
+
 	private I _interactor;
 	private V _screenletView;
 

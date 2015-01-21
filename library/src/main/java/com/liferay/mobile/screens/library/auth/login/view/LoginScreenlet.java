@@ -77,6 +77,16 @@ public class LoginScreenlet
 		return _loginView;
 	}
 
+	@Override
+	protected void onUserAction(int id) {
+		LoginData loginData = getScreenletView();
+		String login = loginData.getLogin();
+		String password = loginData.getPassword();
+		AuthMethod method = loginData.getAuthMethod();
+
+		getInteractor().login(login, password, method);
+	}
+
 	private LoginScreenletView _loginView;
 
 }

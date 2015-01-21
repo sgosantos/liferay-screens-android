@@ -65,6 +65,9 @@ public class LoginScreenletView extends LinearLayout
 
 	@Override
 	public void onClick(View view) {
+		LoginScreenlet loginScreenlet = (LoginScreenlet)getParent();
+
+		loginScreenlet.onUserAction(view.getId());
 	}
 
 	@Override

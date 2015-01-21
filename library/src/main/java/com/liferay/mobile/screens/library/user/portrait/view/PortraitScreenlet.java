@@ -17,8 +17,6 @@ package com.liferay.mobile.screens.library.user.portrait.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 
-import android.graphics.Bitmap;
-
 import android.util.AttributeSet;
 
 import android.view.LayoutInflater;
@@ -65,6 +63,10 @@ public class PortraitScreenlet
 			LayoutInflater.from(getContext()).inflate(layoutId, null);
 
 		return view;
+	}
+
+	@Override
+	protected void onUserAction(int id) {
 	}
 
 }
